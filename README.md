@@ -36,7 +36,7 @@ Your agent moves money on your behalf. But how do you know it did what you asked
 ### The design space
 
 - **Scoped spending permissions** -- the human defines boundaries (amount limits, approved addresses, time windows) and the agent operates freely within them on-chain
-- **On-chain settlement** -- transactions finalize on Ethereum, no payment processor can block or reverse what you authorized
+- **Onchain settlement** -- transactions finalize on Ethereum, no payment processor can block or reverse what you authorized
 - **Conditional payments and escrow** -- the agent only pays when verifiable conditions are met, enforced by the contract, not a platform
 - **Auditable transaction history** -- the human can inspect exactly what the agent did with their money, on-chain, after the fact
 
@@ -54,10 +54,10 @@ Your agent interacts with other agents and services. But trust flows through cen
 
 ### The design space
 
-- **On-chain attestations and reputation** -- verify a counterparty's track record without trusting a single registry to stay honest or stay online
+- **Onchain attestations and reputation** -- verify a counterparty's track record without trusting a single registry to stay honest or stay online
 - **Portable agent credentials** -- tied to Ethereum, no platform can delist your agent and cut off your access
 - **Open discovery protocols** -- any agent can find services without a gatekeeper deciding who's visible
-- **Verifiable service quality** -- proof of work performed and results delivered lives on-chain, not inside a platform's internal logs
+- **Verifiable service quality** -- proof of work performed and results delivered lives onchain, not inside a platform's internal logs
 
 ### Relevant tools
 
@@ -74,8 +74,8 @@ Your agents make deals on your behalf. But the commitments they make are enforce
 ### The design space
 
 - **Smart contract commitments** -- terms are enforced by the protocol, not a company. No intermediary can alter the agreement after the fact
-- **Human-defined negotiation boundaries** -- you set the parameters (price ranges, deliverables, time constraints), the agent executes within them on-chain
-- **Transparent dispute resolution** -- evidence is on-chain, resolution logic is inspectable, nothing hidden inside a platform's arbitration process
+- **Human-defined negotiation boundaries** -- you set the parameters (price ranges, deliverables, time constraints), the agent executes within them onchain
+- **Transparent dispute resolution** -- evidence is onchain, resolution logic is inspectable, nothing hidden inside a platform's arbitration process
 - **Composable coordination primitives** -- escrow, staking, slashing, deadlines as building blocks any agent can plug into
 
 ### Relevant tools
