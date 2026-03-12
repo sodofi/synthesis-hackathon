@@ -42,7 +42,69 @@ Your agent moves money on your behalf. But how do you know it did what you asked
 
 ### Relevant tools
 
-*Partners: add your tool here with a one-liner on how it connects to this problem.*
+### [Uniswap](https://developers.uniswap.org/dashboard/welcome?utm_source=ecosystem&utm_medium=platform&utm_campaign=20260313-synthesis_hackathon&utm_content=callout-self-serve) 
+We provide the swap and liquidity infrastructure that agents use to move value onchain. Any agent that pays needs to swap. We're that layer.
+
+#### Resources
+<details>
+<summary><strong>Uniswap Developer Platform</strong></summary>
+
+The Uniswap API provides quote generation and transaction building for token swaps across 25+ chains. It handles route optimization, gas estimation, and transaction encoding, while your application manages balances, signing, and transaction broadcasting.
+
+- Trading API URL: `https://trade-api.gateway.uniswap.org/v1/`
+- Endpoints: `check_approval`, `quote`, `swap`, `order`
+- API capabilities: token swaps, cross-chain bridging, wrap/unwrap, batched actions (EIP-5792), smart wallets (EIP-7702), Permit2 approvals
+- API Rate Limits: Unauthenticated = 60 req/hour, Authenticated (with API key) = 5,000 req/hour. Always use an API key.
+- Error Codes: 400 (bad request), 401 (unauthorized), 403 (forbidden), 404 (not found), 409 (conflict/duplicate), 422 (validation error), 429 (rate limited)
+
+[Uniswap Developer Platform](https://developers.uniswap.org/dashboard/welcome?utm_source=ecosystem&utm_medium=platform&utm_campaign=20260313-synthesis_hackathon&utm_content=callout-self-serve)
+
+</details>
+
+<details>
+<summary><strong>Uniswap AI Skills</strong></summary>
+
+Uniswap-specific AI tools (skills, plugins, agents) for developers and AI agents integrating the Uniswap ecosystem.
+
+**Skills CLI (any agent)**
+- `npx skills add Uniswap/uniswap-ai`
+
+**Claude Code Marketplace**
+- `/plugin marketplace add uniswap/uniswap-ai`
+
+**Install individual plugins**
+- `/plugin install uniswap-hooks` -- v4 hook development
+- `/plugin install uniswap-trading` -- Swap integration
+- `/plugin install uniswap-cca` -- CCA auctions
+- `/plugin install uniswap-driver` -- Swap & liquidity planning
+- `/plugin install uniswap-viem` -- EVM integration (viem/wagmi)
+
+[Uniswap AI Skills](https://github.com/Uniswap/uniswap-ai)
+
+</details>
+
+<details>
+<summary><strong>Uniswap Protocol</strong></summary>
+  
+The Uniswap Protocol is the onchain liquidity and swap infrastructure across Ethereum and multiple L2s, including v4 architecture, UniswapX, Unichain ecosystem support and more.
+  
+- Core protocol docs: architecture, pools, swaps, liquidity positions, and integrations
+- v4 highlights: Hooks, dynamic fees, singleton design, flash accounting, native ETH support
+- Unichain: DeFi-native Ethereum L2 for lower-cost and faster transactions
+
+[Uniswap Protocol Docs](https://docs.uniswap.org/?utm_source=ecosystem&utm_medium=platform&utm_campaign=20260313-synthesis_hackathon&utm_content=protocol-docs)  
+[Unichain Docs](https://docs.unichain.org/docs?utm_source=ecosystem&utm_medium=platform&utm_campaign=20260313-synthesis_hackathon&utm_content=unichain-docs)  
+[API Docs](https://api-docs.uniswap.org/introduction?utm_source=ecosystem&utm_medium=platform&utm_campaign=20260313-synthesis_hackathon&utm_content=api-docs)
+
+</details>
+
+<details>
+<summary>Disclaimer</summary>
+
+Uniswap Labs provides open-source protocol software and developer tooling, and builders interact with the protocol at their own risk. Nothing in this theme description or feedback from hackathon judges constitutes legal, financial, or investment advice, or an endorsement of any project or token.
+
+</details>
+
 
 ---
 
