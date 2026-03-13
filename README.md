@@ -105,6 +105,99 @@ Uniswap Labs provides open-source protocol software and developer tooling, and b
 
 </details>
 
+### [Locus](https://uselocus.dev)
+We build payment infrastructure for AI agents. One wallet, one USDC balance, access to any API or service — all pay-per-use. Agents pay without accounts, API keys, or subscriptions. Humans stay in control with spending limits and full audit trails.
+
+#### Resources
+<details>
+<summary><strong>Agent Wallets & Transfers</strong></summary>
+
+Non-custodial wallets purpose-built for AI agents on Base (Ethereum L2). Funds are secured while remaining fully accessible via APIs. All gas is sponsored by Locus.
+
+- **Direct transfers**: Wallet-to-wallet USDC transfers on Base
+- **Email escrow transfers**: Spin up subwallets, load them with funds, and send payments via email with passcode-gated redemption
+- **Spending controls**: Allowances (global budget), per-transaction budgets, and approval thresholds — configured in the Locus app
+- **Auditability**: Agents log intent and reasoning alongside every transaction for full audit trails
+
+</details>
+
+<details>
+<summary><strong>Pay-Per-Use APIs</strong></summary>
+
+Stateless APIs that agents can call without creating accounts or managing API keys. Billed per-call (e.g., $0.01/call). Locus also supports custom paid APIs through the x402 protocol.
+
+- No accounts, no API keys, no subscriptions — just pay and use
+- APIs are listed on the Locus frontend and enabled/disabled per wallet
+- Custom x402-compatible endpoints can be added with schema and descriptions
+
+</details>
+
+<details>
+<summary><strong>Vertical Tools</strong></summary>
+
+Agent-native rebuilds of existing SaaS, built to be stateful and pay-per-use via APIs.
+
+- **Build with Locus**: Fullstack Railway deployment via APIs — deploy infrastructure programmatically with paid subscriptions managed through Locus
+- **Checkout with Locus**: A Stripe-style checkout SDK that returns funds back to the payer's Locus wallet. Can be triggered and managed by agents autonomously
+
+</details>
+
+<details>
+<summary><strong>Getting Started — Agent Registration & Skill Files</strong></summary>
+
+Agents can self-register via a single API call — no account or API key needed:
+
+```bash
+curl -X POST https://beta-api.paywithlocus.com/api/register \
+  -H "Content-Type: application/json" \
+  -d '{"name": "MyAgent", "email": "optional@example.com"}'
+```
+
+Both `name` and `email` are optional. The endpoint returns everything the agent needs to start using Locus:
+
+```json
+{
+  "success": true,
+  "data": {
+    "apiKey": "claw_beta_...",
+    "apiKeyPrefix": "claw_beta_...",
+    "ownerPrivateKey": "0x...",
+    "ownerAddress": "0x...",
+    "walletId": "...",
+    "walletStatus": "deploying",
+    "statusUrl": "/api/status",
+    "claimUrl": "https://beta.paywithlocus.com/register/claim/...",
+    "skillFileUrl": "https://beta-api.paywithlocus.com/api/skills/skill.md",
+    "defaults": {
+      "allowanceUsdc": "10.00",
+      "maxAllowedTxnSizeUsdc": "5.00",
+      "chain": "base"
+    }
+  }
+}
+```
+
+- **Save your `apiKey` and `ownerPrivateKey`** — they are only shown once
+- **Share the `claimUrl`** with your human operator to link the agent to a dashboard
+- **Poll `GET /api/status`** with your API key in the header to check wallet deployment
+- **Read `https://beta-api.paywithlocus.com/api/skills/skill.md`** and follow the instructions to set up Locus.
+- Rate limited to 5 registrations per IP per hour
+
+Once registered, agents connect to Locus using skill files (`skill.md`) that describe available tooling and APIs. Custom skill files are generated per account based on enabled services.
+
+- Skill files explain how to use Locus tooling, available APIs, and how to work with them
+- Pay-per-use APIs and vertical tools are toggleable in the frontend, generating custom skill files per account
+- Chain: Base (Ethereum L2), USDC only, with multi-EVM support planned
+
+</details>
+
+<details>
+<summary>Disclaimer</summary>
+
+Locus is currently in beta. APIs, endpoints, and functionality may change without notice. Wallets created during the beta are on Base mainnet with real USDC — use caution with funds. Locus does not provide financial, legal, or investment advice. Builders interact with Locus APIs at their own risk.
+
+</details>
+
 
 ---
 
