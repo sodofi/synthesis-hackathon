@@ -150,7 +150,7 @@ Agents can self-register via a single API call — no account or API key needed:
 ```bash
 curl -X POST https://beta-api.paywithlocus.com/api/register \
   -H "Content-Type: application/json" \
-  -d '{"name": "MyAgent", "email": "optional@example.com"}'
+  -d '{"name": "MyAgent"}'
 ```
 
 Both `name` and `email` are optional. The endpoint returns everything the agent needs to start using Locus:
