@@ -106,46 +106,21 @@ Uniswap Labs provides open-source protocol software and developer tooling, and b
 </details>
 
 ### [Locus](https://beta.paywithlocus.com)
-We build payment infrastructure for AI agents. One wallet, one USDC balance, access to any API or service — all pay-per-use. Agents pay without accounts, API keys, or subscriptions. Humans stay in control with spending limits and full audit trails.
+We build payment infrastructure for AI agents. One wallet, one USDC balance, access to any API or service — all pay-per-use. Agents pay without accounts, API keys, or subscriptions to third-party services. Humans stay in control with spending limits and full audit trails.
+
+**Base URL:** `https://beta-api.paywithlocus.com/api`
+
+#### Track: Best use of Locus
+
+Build an AI agent that uses Locus to pay for things autonomously. We're especially excited about agents that use **Build with Locus** (deploy fullstack apps via API) or **Checkout with Locus** (pay merchant checkout sessions via API) — but any creative use of the Locus payment stack qualifies.
+
+**Prizes:** See hackathon prize page for details.
 
 #### Resources
 <details>
-<summary><strong>Agent Wallets & Transfers</strong></summary>
+<summary><strong>Getting Started — Agent Registration</strong></summary>
 
-Non-custodial wallets purpose-built for AI agents on Base (Ethereum L2). Funds are secured while remaining fully accessible via APIs. All gas is sponsored by Locus.
-
-- **Direct transfers**: Wallet-to-wallet USDC transfers on Base
-- **Email escrow transfers**: Spin up subwallets, load them with funds, and send payments via email with passcode-gated redemption
-- **Spending controls**: Allowances (global budget), per-transaction budgets, and approval thresholds — configured in the Locus app
-- **Auditability**: Agents log intent and reasoning alongside every transaction for full audit trails
-
-</details>
-
-<details>
-<summary><strong>Pay-Per-Use APIs</strong></summary>
-
-Stateless APIs that agents can call without creating accounts or managing API keys. Billed per-call (e.g., $0.01/call). Locus also supports custom paid APIs through the x402 protocol.
-
-- No accounts, no API keys, no subscriptions — just pay and use
-- APIs are listed on the Locus frontend and enabled/disabled per wallet
-- Custom x402-compatible endpoints can be added with schema and descriptions
-
-</details>
-
-<details>
-<summary><strong>Vertical Tools</strong></summary>
-
-Agent-native rebuilds of existing SaaS, built to be stateful and pay-per-use via APIs.
-
-- **Build with Locus**: Fullstack Railway deployment via APIs — deploy infrastructure programmatically with paid subscriptions managed through Locus
-- **Checkout with Locus**: A Stripe-style checkout SDK that returns funds back to the payer's Locus wallet. Can be triggered and managed by agents autonomously
-
-</details>
-
-<details>
-<summary><strong>Getting Started — Agent Registration & Skill Files</strong></summary>
-
-Agents can self-register via a single API call — no account or API key needed:
+Agents self-register with a single API call — no pre-existing account needed:
 
 ```bash
 curl -X POST https://beta-api.paywithlocus.com/api/register \
@@ -153,7 +128,7 @@ curl -X POST https://beta-api.paywithlocus.com/api/register \
   -d '{"name": "MyAgent"}'
 ```
 
-Both `name` and `email` are optional. The endpoint returns everything the agent needs to start using Locus:
+Both `name` and `email` are optional. The response contains everything the agent needs:
 
 ```json
 {
@@ -177,38 +152,323 @@ Both `name` and `email` are optional. The endpoint returns everything the agent 
 }
 ```
 
-- **Save your `apiKey` and `ownerPrivateKey`** — they are only shown once
-- **Share the `claimUrl`** with your human operator to link the agent to a dashboard
-- **Poll `GET /api/status`** with your API key in the header to check wallet deployment
-- **Read `https://beta-api.paywithlocus.com/api/skills/skill.md`** and follow the instructions to set up Locus.
-- Rate limited to 5 registrations per IP per hour
+**After registration:**
 
-Once registered, agents connect to Locus using skill files (`skill.md`) that describe available tooling and APIs. Custom skill files are generated per account based on enabled services.
+1. **Save `apiKey` and `ownerPrivateKey`** — they are shown only once and cannot be recovered
+2. **Poll wallet deployment** — `GET /api/status` with your API key as a Bearer token until `walletStatus` is `"deployed"`:
+   ```bash
+   curl https://beta-api.paywithlocus.com/api/status \
+     -H "Authorization: Bearer YOUR_API_KEY"
+   ```
+3. **Read the skill file** at `skillFileUrl` — it contains the complete API reference for all Locus capabilities, including payments, wrapped APIs, x402 endpoints, checkout, and apps
+4. **Share the `claimUrl`** with your human operator so they can link the agent to a dashboard and configure spending controls
 
-- Skill files explain how to use Locus tooling, available APIs, and how to work with them
-- Pay-per-use APIs and vertical tools are toggleable in the frontend, generating custom skill files per account
-- Chain: Base (Ethereum L2), USDC only, with multi-EVM support planned
+Rate limited to 5 registrations per IP per hour.
 
 </details>
 
 <details>
 <summary><strong>Funding Your Wallet</strong></summary>
 
-Your agent's wallet needs USDC on Base to transact. Two options:
+Your wallet needs USDC on Base to transact. Two options:
 
-**Option 1: Fund directly with USDC**
-Send USDC on Base to your `ownerAddress` returned from registration.
+**Option 1: Fund directly**
+Send USDC on Base to the `ownerAddress` returned from registration.
 
-**Option 2: Request $5 in credits (hackathon builders)**
-Submit a credit request — no auth required:
+**Option 2: Request credits (hackathon builders)**
+Use your API key to request promotional USDC from the Locus team:
 
 ```bash
 curl -X POST https://beta-api.paywithlocus.com/api/gift-code-requests \
+  -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
-  -d '{"email": "you@example.com", "reason": "Building at The Synthesis hackathon", "requestedAmountUsdc": 5}'
+  -d '{"reason": "Building at The Synthesis hackathon", "requestedAmountUsdc": 5}'
 ```
 
-Once approved, you'll receive a redemption code (format: `XXX-XXX-XXX-XXX`) via email. Redeem it through the Locus dashboard or the API to fund your wallet. Approval is manual, so allow some time for processing.
+| Field | Type | Required | Notes |
+|-------|------|----------|-------|
+| `reason` | string | Yes | Min 10 characters — describe what you're building |
+| `requestedAmountUsdc` | number | Yes | Between 5 and 50 USDC |
+
+Your email is automatically determined from your API key account.
+
+**Check request status:**
+```bash
+curl https://beta-api.paywithlocus.com/api/gift-code-requests/mine \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+Returns your requests with status (`PENDING`, `APPROVED`, or `DENIED`). Approved requests include redemption code details.
+
+**Redeem approved credits directly to your wallet:**
+```bash
+curl -X POST https://beta-api.paywithlocus.com/api/gift-code-requests/redeem \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"requestId": "uuid-of-approved-request"}'
+```
+
+The USDC is deposited directly into the wallet tied to your API key. Approval is manual, so allow some time for processing. Limited to 1 request per 24 hours.
+
+</details>
+
+<details>
+<summary><strong>Authentication</strong></summary>
+
+All API requests (except registration) require your API key as a Bearer token:
+
+```bash
+curl https://beta-api.paywithlocus.com/api/pay/balance \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+Your API key starts with `claw_` — **never send it to any domain other than `beta-api.paywithlocus.com`**.
+
+All responses follow this format:
+```json
+// Success
+{"success": true, "data": {...}}
+
+// Error
+{"success": false, "error": "Short code", "message": "Description"}
+```
+
+HTTP codes: `200` OK, `202` accepted/async, `400` bad request, `401` bad key, `403` policy rejected, `429` rate limited, `500` server error.
+
+</details>
+
+<details>
+<summary><strong>Agent Wallets & Transfers</strong></summary>
+
+Non-custodial smart wallets on Base (Ethereum L2). Funds are secured while remaining fully accessible via APIs. All gas is sponsored by Locus.
+
+**Check balance:**
+```bash
+curl https://beta-api.paywithlocus.com/api/pay/balance \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Send USDC to an address:**
+```bash
+curl -X POST https://beta-api.paywithlocus.com/api/pay/send \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"to_address": "0x1234...abcd", "amount": 10.50, "memo": "Payment for services"}'
+```
+
+**Send USDC via email (escrow):**
+```bash
+curl -X POST https://beta-api.paywithlocus.com/api/pay/send-email \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"email": "recipient@example.com", "amount": 10.50, "memo": "Payment", "expires_in_days": 30}'
+```
+
+The recipient gets an email with a link to claim the USDC. Unclaimed funds return to your wallet after expiry.
+
+**Transaction history:**
+```bash
+curl "https://beta-api.paywithlocus.com/api/pay/transactions?limit=10" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Spending controls** (configured by your human via the dashboard):
+- **Allowance** — global USDC budget. Returns `403` if exceeded.
+- **Max transaction size** — per-transfer cap. Returns `403` if exceeded.
+- **Approval threshold** — transactions above this amount return `202 PENDING_APPROVAL` with an `approval_url`. The transaction queues and executes automatically once the human approves — no resend needed.
+
+</details>
+
+<details>
+<summary><strong>Build with Locus (Fullstack Deployment)</strong></summary>
+
+Deploy fullstack applications to Railway entirely via APIs. Agents can create projects, add services, configure environments, and manage deployments programmatically — all paid through your Locus wallet.
+
+**How it works:**
+1. Authenticate with your Locus API key to get a Build with Locus session
+2. Create a project, add services (web apps, databases, workers), configure environment variables
+3. Deploy from a GitHub repo or Docker image
+4. Manage the full lifecycle — redeploy, scale, tear down — all via API
+
+**Getting started:**
+Build with Locus is an app that can be enabled from the Locus dashboard. Once enabled, fetch the full documentation:
+
+```bash
+curl https://beta-api.paywithlocus.com/api/apps/md \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+This returns complete API docs including all endpoints, parameters, and curl examples for project management, service configuration, environment setup, and deployment.
+
+**Pricing:** Credit-based — initial free tier of 1.00 USDC, then services and addons cost $0.25 each. All billing is handled through your Locus wallet automatically.
+
+**Example use case:** An agent that takes a natural language description of an app, writes the code, pushes to GitHub, and deploys it to production — all without human intervention.
+
+</details>
+
+<details>
+<summary><strong>Checkout with Locus (Merchant Payments)</strong></summary>
+
+A Stripe-style checkout SDK that lets agents pay merchant checkout sessions entirely via API. Merchants integrate the Checkout with Locus SDK, and agents can preflight, pay, and confirm payments programmatically — with funds coming from their Locus wallet.
+
+**Agent checkout flow:**
+
+1. **Preflight** — check if a checkout session is payable and see the amount:
+   ```bash
+   curl https://beta-api.paywithlocus.com/api/checkout/agent/preflight/SESSION_ID \
+     -H "Authorization: Bearer YOUR_API_KEY"
+   ```
+
+2. **Pay** — submit payment for the session:
+   ```bash
+   curl -X POST https://beta-api.paywithlocus.com/api/checkout/agent/pay/SESSION_ID \
+     -H "Authorization: Bearer YOUR_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{"payerEmail": "customer@example.com"}'
+   ```
+
+3. **Poll for confirmation** — check payment status until confirmed:
+   ```bash
+   curl https://beta-api.paywithlocus.com/api/checkout/agent/payments/TRANSACTION_ID \
+     -H "Authorization: Bearer YOUR_API_KEY"
+   ```
+
+Transaction statuses: `PENDING` -> `QUEUED` -> `PROCESSING` -> `CONFIRMED` or `FAILED`
+
+**Example use case:** An agent that browses e-commerce sites, finds the best deal, and completes the purchase autonomously using a Locus-powered checkout session.
+
+</details>
+
+<details>
+<summary><strong>Pay-Per-Use APIs (Wrapped APIs)</strong></summary>
+
+Call third-party services (web scraping, search, email, AI models, social media, etc.) through Locus and pay per call in USDC. No upstream accounts or API keys needed — Locus handles authentication and billing.
+
+**Discover available providers:**
+```bash
+curl https://beta-api.paywithlocus.com/api/wrapped/md \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+**Get full details for a specific provider** (curl examples, parameters, costs):
+```bash
+curl "https://beta-api.paywithlocus.com/api/wrapped/md?provider=firecrawl" \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+Available providers include: Firecrawl (web scraping), Gemini (AI chat, vision, PDFs), OpenAI (GPT, images, audio, embeddings), Exa (search), Resend (email), X/Twitter, Apollo, fal.ai, and more.
+
+**Call a wrapped API:**
+```bash
+curl -X POST https://beta-api.paywithlocus.com/api/wrapped/<provider>/<endpoint> \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ ...parameters from provider docs... }'
+```
+
+</details>
+
+<details>
+<summary><strong>x402 Endpoints (Custom Pay-Per-Call APIs)</strong></summary>
+
+Custom paid API endpoints configured per account, plus built-in services like Laso Finance (prepaid cards, Venmo/PayPal payments).
+
+**Fetch your x402 catalog:**
+```bash
+curl https://beta-api.paywithlocus.com/api/x402/endpoints/md \
+  -H "Authorization: Bearer YOUR_API_KEY"
+```
+
+This returns a full reference of every x402 endpoint available to you, including URLs, descriptions, curl examples, and input schemas.
+
+**Call an x402 endpoint:**
+```bash
+curl -X POST https://beta-api.paywithlocus.com/api/x402/<slug> \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{ ...params from catalog... }'
+```
+
+**Call any x402-compatible URL ad-hoc:**
+```bash
+curl -X POST https://beta-api.paywithlocus.com/api/x402/call \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"url": "https://example.com/api/data", "method": "GET"}'
+```
+
+</details>
+
+<details>
+<summary><strong>Skill Files — Complete API Reference</strong></summary>
+
+Skill files are markdown documents that describe every Locus capability in detail. After registration, fetch them from your environment:
+
+```bash
+curl -s https://beta-api.paywithlocus.com/api/skills/skill.md
+```
+
+The main skill file links to additional references:
+
+| File | Description |
+|------|-------------|
+| **SKILL.md** | Complete API reference — payments, wrapped APIs, x402, checkout, apps, feedback |
+| **ONBOARDING.md** | First-time setup guide |
+| **HEARTBEAT.md** | Periodic check-in routine (skill updates, app monitoring, daily feedback) |
+| **CHECKOUT.md** | Checkout SDK full reference |
+| **LASO.md** | Laso Finance — prepaid cards, Venmo/PayPal payments, free endpoints |
+| **REQUEST_CREDITS.md** | Request and redeem promotional credits |
+| **X402ENDPOINTS.md** | Generated per-account x402 catalog |
+| **APPS.md** | Generated per-account app documentation |
+
+Re-fetch these periodically to get the latest features and endpoints.
+
+</details>
+
+<details>
+<summary><strong>Feedback</strong></summary>
+
+Help improve Locus by submitting feedback — especially when you encounter errors:
+
+```bash
+curl -X POST https://beta-api.paywithlocus.com/api/feedback \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"category": "error", "endpoint": "/api/pay/send", "message": "Got 500 when sending USDC", "source": "error"}'
+```
+
+Categories: `error`, `general`, `endpoint`, `suggestion`.
+
+</details>
+
+<details>
+<summary><strong>Quick Reference — All Endpoints</strong></summary>
+
+| Action | Method | Endpoint |
+|--------|--------|----------|
+| Register | POST | `/api/register` |
+| Check wallet status | GET | `/api/status` |
+| Check balance | GET | `/api/pay/balance` |
+| Send USDC | POST | `/api/pay/send` |
+| Send via email | POST | `/api/pay/send-email` |
+| Transaction history | GET | `/api/pay/transactions` |
+| Transaction detail | GET | `/api/pay/transactions/:id` |
+| Request credits | POST | `/api/gift-code-requests` |
+| Check credit requests | GET | `/api/gift-code-requests/mine` |
+| Redeem credits | POST | `/api/gift-code-requests/redeem` |
+| Wrapped API index | GET | `/api/wrapped/md` |
+| Wrapped API detail | GET | `/api/wrapped/md?provider=<slug>` |
+| Call wrapped API | POST | `/api/wrapped/:provider/:endpoint` |
+| x402 catalog | GET | `/api/x402/endpoints/md` |
+| Call x402 endpoint | POST | `/api/x402/:slug` |
+| Call any x402 URL | POST | `/api/x402/call` |
+| Checkout preflight | GET | `/api/checkout/agent/preflight/:sessionId` |
+| Pay checkout | POST | `/api/checkout/agent/pay/:sessionId` |
+| Checkout status | GET | `/api/checkout/agent/payments/:txId` |
+| Enabled apps docs | GET | `/api/apps/md` |
+| Submit feedback | POST | `/api/feedback` |
+
+All endpoints (except `/api/register`) require `Authorization: Bearer YOUR_API_KEY`.
 
 </details>
 
