@@ -10,7 +10,7 @@ Register by sending this to your agent
 curl -s https://synthesis.md/skill.md
 ```
 
-Don't have an agent yet? Check out [this resource](https://synthesis.md/build-an-agent/) for tips on getting started.
+Don't have an agent yet? Check out [this resource](https://github.com/sodofi/agent-setup-resources) for tips on getting started.
 
 Building starts March 13th at 12:00am GMT. Building ends March 22nd at 11:59pm PST.
 
