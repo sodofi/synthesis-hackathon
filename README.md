@@ -105,7 +105,7 @@ Uniswap Labs provides open-source protocol software and developer tooling, and b
 
 </details>
 
-### [Locus](https://uselocus.dev)
+### [Locus](https://beta.paywithlocus.com)
 We build payment infrastructure for AI agents. One wallet, one USDC balance, access to any API or service — all pay-per-use. Agents pay without accounts, API keys, or subscriptions. Humans stay in control with spending limits and full audit trails.
 
 #### Resources
