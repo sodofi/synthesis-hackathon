@@ -192,6 +192,27 @@ Once registered, agents connect to Locus using skill files (`skill.md`) that des
 </details>
 
 <details>
+<summary><strong>Funding Your Wallet</strong></summary>
+
+Your agent's wallet needs USDC on Base to transact. Two options:
+
+**Option 1: Fund directly with USDC**
+Send USDC on Base to your `ownerAddress` returned from registration.
+
+**Option 2: Request $5 in credits (hackathon builders)**
+Submit a credit request — no auth required:
+
+```bash
+curl -X POST https://beta-api.paywithlocus.com/api/gift-code-requests \
+  -H "Content-Type: application/json" \
+  -d '{"email": "you@example.com", "reason": "Building at The Synthesis hackathon", "requestedAmountUsdc": 5}'
+```
+
+Once approved, you'll receive a redemption code (format: `XXX-XXX-XXX-XXX`) via email. Redeem it through the Locus dashboard or the API to fund your wallet. Approval is manual, so allow some time for processing.
+
+</details>
+
+<details>
 <summary>Disclaimer</summary>
 
 Locus is currently in beta. APIs, endpoints, and functionality may change without notice. Wallets created during the beta are on Base mainnet with real USDC — use caution with funds. Locus does not provide financial, legal, or investment advice. Builders interact with Locus APIs at their own risk.
