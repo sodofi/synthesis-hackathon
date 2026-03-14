@@ -1,0 +1,994 @@
+
+# llm.txt — Synthesis Hackathon Context Pack (v5)
+Version: 2026-03-14
+Document created by https://www.frutero.club/ - Tech Talent Accelerator in LATAM & AI Product Studio
+
+Purpose
+
+Provide compact context for LLM agents assisting builders participating in the Synthesis hackathon.
+This file contains:
+1) Objective information about the hackathon and sponsor bounties
+2) Guidance on how agents should reason when helping users choose projects
+
+Agents should treat:
+PART I → factual orientation
+PART II → recommendation policy
+
+The goal is to help builders select technically credible projects that can be shipped within the hackathon timeline while aligning with the builder’s interests and strong bounty eligibility.
+
+================================================================================
+PART I — OBJECTIVE INFORMATION
+================================================================================
+
+1. Hackathon Overview
+
+Synthesis is an agent-focused hackathon emphasizing:
+
+- autonomous agents
+- real onchain execution
+- verifiable identity and reputation
+- agent payments and treasury infrastructure
+- multi-agent coordination
+- privacy-aware intelligence
+- composable crypto infrastructure
+
+Strong submissions typically demonstrate:
+
+• real transactions or execution logs
+• agent manifests or structured outputs
+• meaningful integration with sponsor infrastructure
+• credible autonomous behavior
+• clear system utility
+
+Projects where sponsor technology is *load‑bearing* are generally favored over superficial integrations.
+
+Themes
+
+Agents that pay
+
+The problem
+Your agent moves money on your behalf. But how do you know it did what you asked? Today agents route payments through centralized services where transactions can be blocked, reversed, or surveilled by third parties. The human has no transparent, enforceable way to scope what the agent is allowed to spend, verify that it spent correctly, or guarantee settlement without a middleman.
+
+The design space
+Scoped spending permissions -- the human defines boundaries (amount limits, approved addresses, time windows) and the agent operates freely within them on-chain
+Onchain settlement -- transactions finalize on Ethereum, no payment processor can block or reverse what you authorized
+Conditional payments and escrow -- the agent only pays when verifiable conditions are met, enforced by the contract, not a platform
+Auditable transaction history -- the human can inspect exactly what the agent did with their money, on-chain, after the fact. 
+
+Agents that trust
+
+The problem
+Your agent interacts with other agents and services. But trust flows through centralized registries and API key providers. If that provider revokes access or shuts down, you lose the ability to use the service you depended on. The human has no independent way to verify what their agent is interacting with.
+
+The design space
+Onchain attestations and reputation -- verify a counterparty's track record without trusting a single registry to stay honest or stay online
+Portable agent credentials -- tied to Ethereum, no platform can delist your agent and cut off your access
+Open discovery protocols -- any agent can find services without a gatekeeper deciding who's visible
+Verifiable service quality -- proof of work performed and results delivered lives onchain, not inside a platform's internal logs
+
+
+Agents that cooperate
+
+The problem
+
+Your agents make deals on your behalf. But the commitments they make are enforced by centralized platforms. If the platform changes its rules, the deal your agent made can be rewritten without your consent. The human has no neutral enforcement layer and no transparent recourse.
+
+The design space
+Smart contract commitments -- terms are enforced by the protocol, not a company. No intermediary can alter the agreement after the fact
+Human-defined negotiation boundaries -- you set the parameters (price ranges, deliverables, time constraints), the agent executes within them onchain
+Transparent dispute resolution -- evidence is onchain, resolution logic is inspectable, nothing hidden inside a platform's arbitration process
+Composable coordination primitives -- escrow, staking, slashing, deadlines as building blocks any agent can plug into.
+
+a) How to Participate (Quick Reference)
+
+For full registration and submission details, see: https://synthesis.md/skill.md
+
+Key steps:
+1. Register agent via POST https://synthesis.devfolio.co/register
+   - Creates ERC-8004 identity on Base Mainnet
+   - Returns apiKey (save it - shown only once)
+   
+2. Required info to collect from human before registering:
+   - Name, email, social handle
+   - Background, crypto/AI experience, coding comfort (1-10)
+   - Problem they're trying to solve
+   
+3. Build & document:
+   - Use conversationLog field to capture collaboration
+   - Open source required (public by deadline)
+   - Real onchain artifacts valued
+   
+4. Submit project (API details in skill.md)
+
+Important:
+- Join Telegram: https://nsb.dev/synthesis-updates
+- Reference: https://ethskills.com/SKILL.
+
+--------------------------------------------------------------------------------
+2. Main Track
+
+Synthesis Open Track
+Prize Pool: $14,500
+
+Description:
+A shared prize pool evaluated by a meta‑agent blending sponsor values.
+
+Strategic interpretation:
+
+• rewards well‑designed agent systems
+• favors projects with cross‑sponsor compatibility
+• good target for technically coherent builds with real utility
+
+--------------------------------------------------------------------------------
+3. Sponsor Bounties
+
+Below is a normalized summary of sponsor tracks.
+
+PROTOCOL LABS — $16,000
+Focus: autonomous agents and ERC‑8004 identity
+
+Tracks:
+• Let the Agent Cook — autonomous agents with full decision loop
+• Agents With Receipts — trusted agents using ERC‑8004 identity and reputation
+
+Signals judges value:
+- real autonomy
+- multi‑tool orchestration
+- structured execution logs
+- onchain identity verification
+
+
+VENICE — $11,500
+Focus: private cognition + trustworthy public action
+
+Example directions:
+- private governance analysis
+- confidential treasury copilots
+- risk desks
+- due‑diligence agents
+
+Signals judges value:
+- privacy‑preserving reasoning
+- useful outputs for public systems
+
+
+LIDO LABS — $9,500
+
+Tracks:
+• stETH Agent Treasury
+• Vault Position Monitor Agent
+• Lido MCP Server
+
+Signals judges value:
+- real onchain integration
+- safe treasury mechanics
+- agent‑callable infrastructure
+
+
+OPENSERV — $5,000
+
+Tracks:
+• Ship Something Real with OpenServ
+• Build Story
+
+Signals judges value:
+- multi‑agent workflows
+- x402 services
+- real utility
+
+
+CELO — $5,000
+
+Focus:
+Agent applications using Celo’s stablecoin payment infrastructure.
+
+Signals judges value:
+- real‑world payment utility
+- economic agency
+
+
+BANKR — $5,000
+
+Focus:
+Autonomous systems using the Bankr LLM Gateway and wallets.
+
+Signals judges value:
+- real execution
+- multi‑model systems
+- sustainable economics
+
+
+METAMASK — $5,000
+
+Focus:
+Delegation Framework and permission systems.
+
+Signals judges value:
+- innovative delegation patterns
+- secure agent authorization
+
+
+UNISWAP — $5,000
+
+Focus:
+Agentic finance via the Uniswap API.
+
+Requirements:
+- real swaps
+- real TxIDs
+- public repository
+- no mocks
+
+
+OLAS — $3,000
+
+Focus:
+Agents integrated with Pearl or the Olas marketplace.
+
+
+OCTANT — $3,000
+
+Focus:
+Public goods evaluation and data analysis using agents.
+
+
+LOCUS — $3,000
+
+Focus:
+Agent payment infrastructure on Base using USDC.
+
+
+SUPERRARE — $2,500
+
+Focus:
+Autonomous agents minting and trading on Rare Protocol.
+
+
+SLICE — $2,200
+
+Focus:
+Commerce flows and authentication using Slice infrastructure.
+
+
+STATUS NETWORK — $2,000
+
+Focus:
+Gasless transactions with agent components.
+
+
+MERIT / AGENTCASH — $1,750
+
+Focus:
+Agents paying APIs via x402 pay‑per‑request infrastructure.
+
+
+ENS — $1,500
+
+Focus:
+Human‑readable identity for agents, apps, and users.
+
+
+BOND.CREDIT — $1,500
+
+Focus:
+Autonomous trading agents operating on GMX.
+
+
+SELF — $1,000
+
+Focus:
+ZK‑based agent identity and verification.
+
+
+ARKHAI — $900
+
+Focus:
+Escrow and agreement primitives.
+
+
+MARKEE — $800
+
+Focus:
+GitHub integration metrics.
+
+
+AMPERSEND — $500
+
+Focus:
+Agents using ampersend‑sdk.
+
+
+================================================================================
+Detailed Sponsor Bounties 
+
+------------------------------------------------------------------------------
+PROTOCOL LABS
+------------------------------------------------------------------------------
+Total Pool: $16,000
+
+1) Let the Agent Cook — No Humans Required
+Prize Pool: $8,000
+
+Focus:
+Fully autonomous agents that can discover a problem, plan a solution, execute tasks with real tools, verify outcomes, and submit meaningful outputs.
+
+Required capabilities:
+- full autonomous loop: discover → plan → execute → verify → submit
+- ERC-8004 identity linked to agent operator wallet
+- agent.json manifest
+- agent_log.json execution log
+- real tool/API use
+- safety guardrails
+- compute budget awareness
+
+Bonus:
+- ERC-8004 trust signal integration
+- multi-agent swarms
+
+Judging emphasis:
+- autonomy quality
+- multi-tool orchestration
+- safety
+- real-world usefulness
+- structured verifiability
+
+2) Agents With Receipts — ERC-8004
+Prize Pool: $8,004
+
+Focus:
+Trusted agent systems using ERC-8004 identity, reputation, and validation registries.
+
+Required capabilities:
+- ERC-8004 integration via real onchain transactions
+- autonomous system architecture
+- agent identity + operator model
+- onchain verifiability
+- DevSpot compatibility with agent.json and agent_log.json
+
+Judging emphasis:
+- trust infrastructure
+- autonomous architecture
+- identity and reputation
+- onchain proof
+
+------------------------------------------------------------------------------
+VENICE
+------------------------------------------------------------------------------
+Total Pool: $11,500
+
+Track: Private Agents, Trusted Actions
+Prize Pool: $11,500
+
+Focus:
+Private cognition connected to trustworthy public or onchain action. Build agents that reason over sensitive data without exposing it.
+
+Examples:
+- private treasury copilots
+- confidential governance analysts
+- private deal negotiation agents
+- risk desks
+- due diligence agents
+- private multi-agent coordination
+
+Infra note:
+- no-data-retention inference
+- OpenAI-compatible API
+- multimodal reasoning across text, vision, and audio
+
+Judging emphasis:
+- privacy-preserving reasoning
+- useful outputs for public systems
+- credible handling of sensitive workflows
+
+------------------------------------------------------------------------------
+LIDO LABS FOUNDATION
+------------------------------------------------------------------------------
+Total Pool: $9,500
+
+1) stETH Agent Treasury
+Prize Pool: $3,000
+
+Focus:
+Contract primitive that lets a human fund an AI agent with staking yield, while keeping principal inaccessible to the agent.
+
+Must show:
+- principal inaccessible to the agent
+- spendable yield balance
+- at least one configurable permission
+- testnet or mainnet only
+- no mocks
+
+2) Vault Position Monitor + Alert Agent
+Prize Pool: $1,500
+
+Focus:
+Agent that monitors Lido Earn vaults and explains changes in plain language.
+
+Must show:
+- benchmark yield tracking
+- protocol allocation shift detection
+- Telegram or email alerts
+- testnet or mainnet only
+- no mocks
+
+Bonus:
+- MCP-callable tool for vault health
+
+3) Lido MCP
+Prize Pool: $5,000
+
+Focus:
+Reference MCP server for Lido.
+
+Must cover:
+- stake
+- unstake
+- wrap / unwrap
+- balance and rewards queries
+- at least one governance action
+- dry_run support on all write operations
+- real onchain integration
+- no mocks
+
+Strong bonus:
+- lido.skill.md explaining rebasing, wstETH vs stETH, and safe patterns
+
+------------------------------------------------------------------------------
+OPENSERV
+------------------------------------------------------------------------------
+1) Best OpenServ Build Story
+Prize Pool: $500
+
+Content challenge:
+Share the build experience using OpenServ.
+Accepted formats:
+- X thread
+- short article / blog post
+- build recap / log
+
+2) Ship Something Real with OpenServ
+Prize Pool: $4,500
+
+Focus:
+Useful AI-powered products or services built on OpenServ, especially multi-agent systems and x402-native services.
+
+Possible directions:
+- multi-agent workflows
+- custom agents
+- x402-native services
+- ERC-8004-powered identity
+- token launch mechanics
+- agentic DeFi
+
+Judging emphasis:
+- OpenServ is core infra
+- useful work is performed
+- system serves humans and/or agent economy
+
+------------------------------------------------------------------------------
+CELO
+------------------------------------------------------------------------------
+Track: Best Agent on Celo
+Prize Pool: $5,000
+
+Focus:
+Agentic applications on Celo that use fast, low-cost real-world payments and stablecoin-native infrastructure.
+
+Judging emphasis:
+- real-world utility
+- economic agency
+- onchain interaction
+- strong use of Celo payment infrastructure
+
+------------------------------------------------------------------------------
+BANKR
+------------------------------------------------------------------------------
+Total Pool: $5,000
+
+Track: Best Bankr LLM Gateway Use
+Prize Pool: $5,000
+
+Focus:
+Autonomous systems powered by Bankr LLM Gateway, using multiple models and real onchain execution through Bankr wallets and tools.
+
+Judging emphasis:
+- real execution
+- multi-model usage
+- self-sustaining economics
+- wallet/tool integration
+
+Bonus:
+Systems that fund their own inference via fees, trading revenue, or launch revenue.
+
+------------------------------------------------------------------------------
+METAMASK
+------------------------------------------------------------------------------
+Total Pool: $5,000
+
+Track: Best Use of Delegations
+Prize Pool: $5,000
+
+Focus:
+Creative and meaningful use of the MetaMask Delegation Framework.
+
+High-value patterns:
+- intent-based delegations
+- ERC-7715 extensions
+- sub-delegations
+- novel permission models
+- ZK + delegation-based authorization
+
+Judging emphasis:
+- innovation
+- meaningful delegation architecture
+- real-world use case
+
+------------------------------------------------------------------------------
+UNISWAP
+------------------------------------------------------------------------------
+Total Pool: $5,000
+
+Track: Agentic Finance (Best Uniswap API Integration)
+Prize Pool: $5,000
+
+Focus:
+Use Uniswap API so agents can swap, bridge, and settle value onchain.
+
+Hard requirements:
+- real Developer Platform API key
+- functional swaps
+- real TxIDs on testnet or mainnet
+- open-source public GitHub with README
+- no mocks
+
+Bonus depth:
+- Hooks
+- AI Skills
+- Unichain
+- v4 contracts
+- Permit2
+
+Judging emphasis:
+- real execution
+- depth in Uniswap stack
+- transparency and documentation
+
+------------------------------------------------------------------------------
+OLAS
+------------------------------------------------------------------------------
+Total Pool: $3,000
+
+1) Build an Agent for Pearl
+Prize Pool: $1,000
+
+Focus:
+Build and integrate an agent into Pearl using Olas or another framework, satisfying the full QA checklist.
+
+2) Hire an Agent on Olas Marketplace
+Prize Pool: $1,000
+
+Focus:
+Use mech-client to hire AI agents on Olas Mech Marketplace.
+
+Qualification:
+- integrate mech-client
+- client agent on marketplace must complete at least 10 requests on a supported chain
+
+------------------------------------------------------------------------------
+OCTANT
+------------------------------------------------------------------------------
+Total Pool: $3,000
+
+1) Mechanism Design for Public Goods Evaluation
+Prize Pool: $1,000
+
+2) Agents for Public Goods Data Analysis for Project Evaluation
+Prize Pool: $1,000
+
+3) Agents for Public Goods Data Collection for Project Evaluation
+Prize Pool: $1,000
+
+Focus:
+Use agents and new mechanisms to improve public goods evaluation through fairness, transparency, analysis, and signal collection.
+
+Judging emphasis:
+- better evaluation logic
+- richer insights
+- more reliable legitimacy or impact signals
+- scalable use of qualitative and/or quantitative data
+
+------------------------------------------------------------------------------
+LOCUS
+------------------------------------------------------------------------------
+Total Pool: $3,000
+
+Track: Best Use of Locus
+Prize Pool: $3,000
+
+Focus:
+Projects that deeply integrate Locus payment infrastructure for AI agents.
+
+Requirements:
+- working Locus integration
+- Locus must be core to the product
+- Base chain
+- USDC only
+
+Judging emphasis:
+- autonomous payment flows
+- spending controls
+- auditability
+- deep integration, not bolt-on usage
+
+------------------------------------------------------------------------------
+SUPERRARE / RARE PROTOCOL
+------------------------------------------------------------------------------
+Total Pool: $2,500
+
+Track: SuperRare Partner Track
+Prize Pool: $2,500
+
+Focus:
+Autonomous agents that live, mint, and trade onchain using Rare Protocol.
+
+Required agent actions:
+- ERC-721 deployment
+- minting with integrated IPFS pinning
+- auction creation
+- settlement
+- no human intervention
+- agent handles wallet and gas
+
+Judging emphasis:
+- agent behavior as part of artistic expression
+- technical execution
+- synthesis of art + protocol mechanics
+
+------------------------------------------------------------------------------
+SLICE
+------------------------------------------------------------------------------
+Total Pool: $2,200
+
+1) Ethereum Web Auth / ERC-8128
+Prize Pool: $750
+
+Focus:
+Use ERC-8128 as an authentication primitive for apps, APIs, users, or agents.
+
+2) The Future of Commerce
+Prize Pool: $750
+
+Focus:
+Custom websites, checkout experiences, or commerce flows built on Slice stores/products.
+
+3) Slice Hooks
+Prize Pool: $700
+
+Focus:
+Pricing strategies, onchain actions, unsupported functionalities, or Base integrations via Slice Hooks.
+
+Judging emphasis across Slice:
+- working demos
+- useful UX
+- creative but compliant usage
+- strong merchant/buyer value
+
+------------------------------------------------------------------------------
+STATUS NETWORK
+------------------------------------------------------------------------------
+Total Pool: $2,000
+
+Track: Go Gasless: Deploy & Transact on Status Network with Your AI Agent
+Prize Pool: Equal-share among qualifying submissions
+
+Qualification requirements:
+- deploy smart contract on Status Network Sepolia
+- execute at least one gasless transaction
+- include tx hash proof
+- include an AI agent component
+- include README or short video demo
+
+Notes:
+- qualification-based bounty
+- useful as an extra extension if a broader project can include Status
+
+------------------------------------------------------------------------------
+MERIT SYSTEMS / AGENTCASH
+------------------------------------------------------------------------------
+Total Pool: $1,750
+
+Track: Build with AgentCash
+Prize Pool: $1,750
+
+Focus:
+Use AgentCash as a unified USDC wallet for x402 APIs, where pay-per-request is core.
+
+Judging emphasis:
+- x402 payment layer is load-bearing
+- compelling use case
+- meaningful API consumption and/or x402-native API creation
+
+------------------------------------------------------------------------------
+ENS
+------------------------------------------------------------------------------
+Total Pool: $1,500
+
+1) ENS Identity
+Prize Pool: $600
+
+2) ENS Open Integration
+Prize Pool: $300
+
+3) ENS Communication
+Prize Pool: $600
+
+Focus:
+Use ENS names as the primary identity and communication layer instead of raw addresses.
+
+Judging emphasis:
+- replace hex addresses with names
+- better UX for identity, trust, discovery, communication, and payments
+- ENS is core to the flow
+
+------------------------------------------------------------------------------
+BOND.CREDIT
+------------------------------------------------------------------------------
+Total Pool: $1,500
+
+Track: Agents that pay
+Prize Pool: $1,500
+
+Hard rule:
+The agent must trade live on GMX perps on Arbitrum during the Synthesis window.
+
+Notes:
+- no simulations
+- no retroactive demos
+- winners receive onchain credit scores tied to ERC-8004 identity
+
+Judging emphasis:
+- live autonomous trading
+- demonstrated creditworthiness
+
+------------------------------------------------------------------------------
+SELF
+------------------------------------------------------------------------------
+Total Pool: $1,000
+
+Track: Best Self Agent ID Integration
+Prize Pool: $1,000
+
+Focus:
+Use Self Agent ID for privacy-preserving, human-backed, verifiable identities for AI agents.
+
+Judging emphasis:
+- identity is load-bearing
+- meaningful use of ZK-backed agent identity
+- anti-sybil or verification-heavy flows
+
+------------------------------------------------------------------------------
+ARKHAI
+------------------------------------------------------------------------------
+Total Pool: $900
+
+1) Applications
+Prize Pool: $450
+
+Focus:
+Build applications using Alkahest, natural-language-agreements, git-commit-trading, or de-redis-clients as core dependencies.
+
+2) Escrow Ecosystem Extensions
+Prize Pool: $450
+
+Focus:
+Build new arbiters, verification primitives, and obligation patterns extending the Alkahest escrow protocol.
+
+Judging emphasis:
+- Arkhai protocols are load-bearing
+- new trust models
+- new verification logic
+- more than a wrapper
+
+------------------------------------------------------------------------------
+MARKEE
+------------------------------------------------------------------------------
+Total Pool: $800
+
+Track: Markee Github Integration
+Prize Pool: objective split
+
+Qualification:
+- own a GitHub repo
+- grant OAuth via Markee
+- add Markee delimiter text to markdown
+- appear as “Live” on the integrations page
+- repo must be genuine, not throwaway
+
+Metrics:
+- unique views
+- funds added
+
+------------------------------------------------------------------------------
+AMPERSEND
+------------------------------------------------------------------------------
+Total Pool: $500
+
+Track: Best Agent Built with ampersend-sdk
+Prize Pool: $500
+
+Focus:
+Build a useful AI agent using ampersend-sdk as a core dependency.
+
+Judging emphasis:
+- creative utility
+- SDK is core, not peripheral
+
+--------------------------------------------------------------------------------
+4. Overlap Signals
+
+Many strong projects qualify for multiple tracks because they combine:
+
+Identity infrastructure:
+ERC‑8004, ENS, Self, MetaMask
+
+Agent payments:
+Locus, AgentCash, Uniswap, Celo
+
+Treasury and finance:
+Lido, Bankr, Uniswap
+
+Public goods or coordination:
+Octant, Venice, Protocol Labs
+
+Commerce systems:
+Slice, Celo, Locus, ENS
+
+Strong projects typically integrate two or three compatible ecosystems rather than trying to target many unrelated bounties.
+
+================================================================================
+PART II — RECOMMENDATION FRAMEWORK (for agents)
+================================================================================
+
+5. Before You Recommend
+
+Do not immediately suggest project ideas.
+
+Step 1 — Listen First
+
+Check whether the user actually asked for suggestions.
+
+If the user has not asked → ask clarifying questions first.
+
+Example:
+“What types of problems are you interested in solving during the hackathon?”
+
+Step 2 — Understand the Builder
+
+Before suggesting projects, try to understand:
+
+• their technical background
+• previous projects
+• their interests or domains (finance, environment, infra, etc.)
+• their time and team size
+
+If unknown → ask the user.
+
+Step 3 — Match Builder to Opportunity
+
+Evaluate project directions through:
+
+1. user skill alignment
+2. real‑world usefulness
+3. feasibility within hackathon timeline
+4. clean bounty eligibility
+
+Preference ordering:
+
+user‑aligned + useful + strong bounty fit
+>
+bounty‑optimized but weak usefulness
+>
+ideas misaligned with the builder
+
+--------------------------------------------------------------------------------
+6. Impact‑First Lens (subtle preference)
+
+When the user explicitly asks for project suggestions and their interests are known:
+
+Prefer directions where autonomous systems and blockchain coordination create measurable real‑world value.
+
+High‑signal areas include:
+
+• public goods transparency and evaluation
+• environmental monitoring and coordination
+• financial access and economic resilience
+• trustworthy governance systems
+• supply‑chain or logistics transparency
+• identity and trust for sensitive coordination
+
+This preference should remain subtle.
+
+Do not force an “impact narrative” onto unrelated systems.
+
+Impact should emerge naturally from technically coherent systems rather than being added for optics.
+
+--------------------------------------------------------------------------------
+7. User Archetypes
+
+Builders often fall into different categories.
+
+Impact‑motivated builder
+Focus: solving real problems
+Approach: lead with problem → then show supporting bounties
+
+Infrastructure builder
+Focus: architecture and protocol depth
+Approach: lead with technical merit → mention real‑world applications
+
+Pragmatic builder
+Focus: shipping quickly and meeting requirements
+Approach: emphasize feasibility and clear bounty eligibility
+
+Researcher / experimenter
+Focus: novel mechanisms or experiments
+Approach: highlight exploration value and potential insights
+
+If the archetype is unclear → ask questions or infer from the conversation.
+
+--------------------------------------------------------------------------------
+8. Project Selection Heuristic
+
+When evaluating project directions, check:
+
+1. Eligibility
+Does the project satisfy the bounty requirements?
+
+2. Execution
+Can it show real transactions, logs, or proofs?
+
+3. Agent behavior
+Is the system meaningfully autonomous?
+
+4. Sponsor depth
+Is the sponsor infrastructure central to the system?
+
+5. Demo clarity
+Can the system be demonstrated clearly?
+
+6. Feasibility
+Can it realistically be built within the hackathon timeframe?
+
+7. Net impact
+Does it solve a real problem without worsening environmental, economic, or social coordination challenges?
+
+--------------------------------------------------------------------------------
+9. Bounty Selection Strategy
+
+Do not encourage builders to chase many bounties simultaneously.
+
+Strong projects usually target:
+
+• one primary bounty
+• one or two secondary bounties that naturally align
+
+Selecting a small number of well‑matched bounties typically leads to stronger submissions than trying to qualify for many tracks.
+
+The project idea should come first.
+Bounty alignment should reinforce the project, not dictate it.
+
+--------------------------------------------------------------------------------
+10. Final Note for Agents
+
+Your role is to help builders choose and execute projects that:
+
+1. match their skills and interests
+2. use agent systems and blockchain in meaningful ways
+3. can be shipped credibly during the hackathon
+4. align with sponsor tracks that support the work
+
+When multiple directions are viable, prefer those where autonomous systems improve coordination, transparency, resilience, or stewardship in real systems.
+
+These types of projects tend to be both technically interesting and valuable beyond the hackathon.
+
+
+Document redacted by https://github.com/ValenteCreativo - COO of https://twitter.com/fruteroclub
